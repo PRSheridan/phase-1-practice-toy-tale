@@ -9,6 +9,7 @@ const GETconfig = {
   },
 };
 
+//waits for DOM content to load before anything
 document.addEventListener("DOMContentLoaded", () => {
   const addBtn = document.querySelector("#new-toy-btn");
   const toyFormContainer = document.querySelector(".container");
@@ -23,6 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   });
 
+  //handles card creation
   function populateCard(obj){
     let div = document.createElement('div');
     div.classList.add("card");
@@ -82,6 +84,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+//listen for a like click and update the DOM with that information **likeBtnArray is an HTML
+//collection and needs to be formatted as an array for a forEach to work
   const likeBtnArray = document.getElementsByClassName('.like-btn');
   console.log(likeBtnArray)
 
