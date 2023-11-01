@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
       toyFormContainer.style.display = "none";
     };
   });
-
+  
   //handles card creation
   function populateCard(obj){
     let div = document.createElement('div');
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const p = document.createElement('p');
     p.textContent = `${obj.likes} likes`;
     const button = document.createElement('button');
-    button.className = 'like-btn'
+    button.classList.add('like-btn');
     button.id = obj.id;
     button.textContent = 'Like';
 
@@ -86,11 +86,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
 //listen for a like click and update the DOM with that information **likeBtnArray is an HTML
 //collection and needs to be formatted as an array for a forEach to work
-  const likeBtnArray = document.getElementsByClassName('.like-btn');
-  console.log(likeBtnArray)
 
-  likeBtnArray.forEach(function (likeBtn) {
-    likeBtn.addEventListener('click', (event) => {
+  document.addEventListener('click', (event) => {
+    event.preventDefault();
+
+    if (event.target.classList.contains("like-btn") ) {
+      let buttonId = event.target.id;
+      let likeCount = event.target.parentNode.querySelector('p').textContent;
+
+      likeCount = likeCount.replace(" likes", "");
+      Number(likeCount);
+
+      likeCount++;
+      thisUrl = `${url}/${buttonId}`
+
+      const PATCHconfig = {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        },
+        body: JSON.stringify({
+          "likes": likeCount
+          })
+        };
+
+        fetch (thisUrl, PATCHconfig)
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(data) {
+          console.log(data);
+        });
+      };
+      
     });
-  });
 });
