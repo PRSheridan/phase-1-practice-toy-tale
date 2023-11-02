@@ -116,7 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
           return response.json();
         })
         .then(function(data) {
-          console.log(data);
+          event.target.parentNode.querySelector('p').textContent = `${likeCount} likes`
         });
       };
       
